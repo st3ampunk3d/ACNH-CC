@@ -13,7 +13,7 @@ export default defineConfig({
         logout: resolve(__dirname, "src/auth/logout.html"),
         events: resolve(__dirname, "src/events/index.html"),
         favorites: resolve(__dirname, "src/favorites/index.html"),
-        creatures: resolve(__dirname, "src/collectables/creatures/index.html"),
+        creatures: resolve(__dirname, "src/creatures/index.html"),
       },
     },
   },
