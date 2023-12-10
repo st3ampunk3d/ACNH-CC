@@ -13,7 +13,6 @@ export default defineConfig({
         logout: resolve(__dirname, "src/auth/logout.html"),
         events: resolve(__dirname, "src/events/index.html"),
         favorites: resolve(__dirname, "src/favorites/index.html"),
-        creature: resolve(__dirname, "src/creature-pages/index.html"),
         creatures: resolve(__dirname, "src/creatures/index.html"),
         villagers: resolve(__dirname, "src/villagers/index.html"),
         collection: resolve(__dirname, "src/my-collection/index.html")
