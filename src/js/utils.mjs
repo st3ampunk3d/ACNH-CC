@@ -1,3 +1,80 @@
+export function getLocalStorage(key) {
+  var storedArray = JSON.parse(localStorage.getItem(key));
+  if (storedArray == null) {
+    storedArray = {};
+  }
+  return storedArray;
+}
+// save data to local storage
+export function setLocalStorage(key, collection, data) {
+  try {
+    
+    let storedArray = JSON.parse(localStorage.getItem(key));
+    
+    if (storedArray == null) {
+      storedArray = {[collection] : []}
+    }
+
+    if (!storedArray[collection]) {
+      storedArray[collection] = []
+    }
+
+    var result = storedArray[collection].find(item => item.name === data.name)
+
+    if (!result) {
+      storedArray[collection].push(data)
+    } else {
+      const index = storedArray[collection].findIndex((item) => item.name == data.name)
+      storedArray[collection].splice(index, 1)
+    }
+
+    localStorage.setItem(key, JSON.stringify(storedArray));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function loadSaved(key, category, element) {
+  const cards = document.querySelectorAll(`.${element}`)
+  const list = getLocalStorage(key)[category]
+
+  if (list != null) {
+    cards.forEach((item) => {
+      if (list.find(thing => thing.name == item.id)) {
+        item.classList.add("saved")
+      } else {
+        item.classList.remove("saved")
+      }
+    })
+  }
+}
+
+export async function addSaved(key, element, category, list, reload) {
+  setTimeout(() => {
+    window.onload = loadSaved(key, category, element)
+    console.log(list)
+
+    document.querySelector("#content-wrapper").addEventListener("click", function(e) {
+      if (e.target && e.target.nodeName =="I") {
+        var classes = e.target.className.split(" ")
+        if (classes) {
+          for (var x=0; x < classes.length; x++) {
+            if(classes[x] == element) {
+              const index = list.findIndex((item) => item.name == e.target.id)
+              console.log(index)
+              setLocalStorage(key, category, list[index])
+              loadSaved(key, category, element, e.target.id)
+              if (reload) {
+                location.reload()
+              } 
+            }
+          }
+        }
+      }
+    })
+  }, 200)
+}
+
 export async function renderListWithTemplates(
   templateFn,
   parentElement,
@@ -68,4 +145,56 @@ export function renderWithTemplate(
     const firstLetterCaps = text.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
     const capitalized = firstLetterCaps.replace(/(^\w{1})|(-+\w{1})/g, letter => letter.toUpperCase());
     return capitalized
+  }
+
+  export function paginate(element, perPage) {
+      const content = document.querySelector(element); 
+      const itemsPerPage = perPage; // set number of items per page
+      let currentPage = 0;
+      const items = Array.from(content.getElementsByTagName('article')).slice(0);
+    
+    function showPage(page) {
+      const startIndex = page * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      items.forEach((item, index) => {
+        item.classList.toggle('hidden', index < startIndex || index >= endIndex);
+      });
+      updateActiveButtonStates();
+    }
+    
+    function createPageButtons() {
+      const totalPages = Math.ceil(items.length / itemsPerPage);
+      const paginationContainer = document.createElement('div');
+      const paginationDiv = document.body.appendChild(paginationContainer);
+      paginationContainer.classList.add('pagination');
+    
+      // Add page buttons
+      for (let i = 0; i < totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i + 1;
+        pageButton.addEventListener('click', () => {
+          currentPage = i;
+          showPage(currentPage);
+          updateActiveButtonStates();
+        });
+    
+          content.appendChild(paginationContainer);
+          paginationDiv.appendChild(pageButton);
+        }
+    }
+    
+    function updateActiveButtonStates() {
+      const pageButtons = document.querySelectorAll('.pagination button');
+      pageButtons.forEach((button, index) => {
+        if (index === currentPage) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+    }
+    
+      createPageButtons(); // Call this function to create the page buttons initially
+      showPage(currentPage);
+    
   }

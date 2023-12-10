@@ -17,39 +17,54 @@ export default class ExternalServices {
     // this.path = `../json/${this.category}.json`;
   }
 
-  async getEvents(category, year, month) {
+  async getData(url) {
     var data = null
     const options = {
-      method: "GET",
-      headers: {
-        "x-api-key": apiKey,
-      }
-    };
+        mehtod: "GET",
+        headers: {
+            "x-api-key": apiKey
+        }
+    }
 
-      data = await fetch(`${baseURL}nh/${category}?year=${year}&month=${month}`, options)
-      .then((response) => response.json())
-      .then((item) => {
-      return item;
-    });
+    data = await fetch(`${url}`, options)
+    .then((response) => response.json())
+    .then((item) => {
+        return item
+    })
 
-  return convertToJson(data)
+    return convertToJson(data)
 }
 
-  async getData(category) {
-    var data = null
-    const options = {
-      method: "GET",
-      headers: {
-        "x-api-key": apiKey,
-      }
-    };
+  async getVillagers() {
+      const url = `${baseURL}villagers`
+      return this.getData(url)
+  }
 
-      data = await fetch(`${baseURL}nh/${category}`, options)
-      .then((response) => response.json())
-      .then((item) => {
-      return item;
-    });
+  async getEvents(year, month) {
+      const url = `${baseURL}nh/events?year=${year}&month=${month}`
+      return this.getData(url)
+  }
 
-  return convertToJson(data)
-}
+  async getCreatures(category) {
+      const url = `${baseURL}nh/${category}`
+      return this.getData(url)
+  }
+
+  async getCreature(category, name) {
+    const url = `${baseURL}nh/${category}/${name}`
+    const data = await this.getData(url)
+    console.log(data)
+    return data
+  }
+
+  async getArt() {
+      const url = `${baseURL}nh/art`
+      return this.getData(url)
+  }
+
+  async getSingle(url) {
+    const response = await fetch(url)
+    const data = await convertToJson(response)
+    return data.Result;
+  }
 }

@@ -1,4 +1,4 @@
-function renderCalendar(dataSource, category) {
+function renderCalendar(dataSource) {
     let date=new Date(); // creates a new date object with the current date and time
     let year=date.getFullYear(); // gets the current year
     let month=date.getMonth(); // gets the current month (index based, 0-11)
@@ -23,7 +23,7 @@ function renderCalendar(dataSource, category) {
 
     // function to generate the calendar
     const manipulate= async ()=> {
-        const events = await dataSource.getEvents(category, year, month+1)
+        const events = await dataSource.getEvents(year, month+1)
 
         let dayone=new Date(year, month, 1).getDay();
         let lastdate=new Date(year, month + 1, 0).getDate();
@@ -49,13 +49,25 @@ function renderCalendar(dataSource, category) {
 
             let eventsToday = ""
             events.forEach((item) => {
+                var cssClass = "event fa-li"
+                let localEvent = item.event.replace("(Northern Hemisphere)", "")
+                let event = ""
                 if (item.date == `${year}-${eventMonth}-${eventDay}`) {
-                    eventsToday+=`<li class="event">${item.event}</li>`
+                    if (localEvent.includes("birthday")) {
+                        event = `<i class="fa-solid fa-cake-candles"></i>` + localEvent.replace("'s birthday", "")
+                    } else if (localEvent.toLowerCase().includes("shopping")) {
+                        event = `<i class="fa-solid fa-cart-shopping"></i>` + localEvent
+                    } else {
+                        event = `<i class="fa-regular fa-calendar-days"></i>` + localEvent
+                    }
+                    if (!item.event.includes("Southern Hemisphere")) {
+                        eventsToday+=`<li class="${cssClass}">${event}</li>`
+                    }
                 }
             })
 
             let isToday=i===date.getDate() && month===new Date().getMonth() && year===new Date().getFullYear() ? "active": "";
-            lit+=`<li class="day ${isToday}">${i}<ul class="event-list">${eventsToday}</ul></li>`;
+            lit+=`<li class="day ${isToday}">${i}<ul class="event-list fa-ul">${eventsToday}</ul></li>`;
         }
 
         for (let i=dayend; i < 6; i++) {
@@ -91,13 +103,12 @@ function renderCalendar(dataSource, category) {
 }
 
 export default class Calendar {
-    constructor(category, dataSource) {
-        this.category = category;
+    constructor(dataSource) {
         this.dataSource = dataSource;
     }
 
     async init() {
 
-        renderCalendar(this.dataSource, this.category)
+        renderCalendar(this.dataSource)
     }
 }
