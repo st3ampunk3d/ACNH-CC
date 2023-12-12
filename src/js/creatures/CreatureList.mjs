@@ -34,38 +34,11 @@ export default class CreatureList {
     async init() {
       const list = await this.dataSource;
   
-      //document
-      //.getElementById("sort")
-      //.addEventListener("change", this.sortOrder.bind(this));
-  
       this.renderList(list);
       addSaved("ac-favorites", "fav", this.category, list, this.reload)
       addSaved("ac-collection", "collected", this.category, list, this.reload)
     }
-  
-    async sortOrder() {
-      let list = await this.dataSource.getData(this.category);
-  
-      var e = document.getElementById("sort");
-      var option = e.options[e.selectedIndex].text;
-      list.sort((a,b) => {
-        let fa = a.NameWithoutBrand.toLowerCase()
-        let fb = b.NameWithoutBrand.toLowerCase()
-      
-        if (option == "Price") {
-           return Number(a.FinalPrice) - Number(b.FinalPrice)
-        }
-        if (option == "Brand") {
-          fa = a.Brand.Name.toLowerCase()
-          fb = b.Brand.Name.toLowerCase()
-        }
-      
-        return fa.localeCompare(fb)
-      })
-      document.querySelector(".product-list").innerHTML = ""
-      this.renderList(list)
-    }
-  
+    
     renderList(list) {
       if (list != null) {
         renderListWithTemplates(ItemCardTemplate, this.gridElement, list);

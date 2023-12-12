@@ -1,15 +1,15 @@
-# sleepoutside
+# Animal Crossing: New Horizons - Collection Creator (ACNH-CC)
 
 ## Production URL:
- - https://aesthetic-scone-bb0a43.netlify.app
+ - https://lambent-starlight-2a9cd8.netlify.app/
 
 ## Description
 
-Use this as a starting point to complete the WDD 330 team activity: the SleepOutside web application. It scaffolds out a simple web app with Vite support to bundle up our assets.
+This web app is intended to be tool for tracking progress in Animal Crossing: New Horizons. It pulls data from the Nookipedia API about the various events, citizens, and collectable items found in the game. While the functionality in this first draft of the web app is limited, it has the potential to become a very scalable and rhobust tool for Animal Crossing enthusiats to use.
 
 ## Prerequisites
 
-- You must have Node installed. visit https://byui-cit.github.io/advcss/lesson01/l01-software.html and skip to the Node section for instructions
+- You must have Node installed.
 
 ## Setup
 

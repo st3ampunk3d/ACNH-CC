@@ -1,6 +1,6 @@
 import CreatureList from "./creatures/CreatureList.mjs";
 import VillagerList from "./VillagerList.mjs";
-import { loadHeaderFooter, getParams, getLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter, getLocalStorage } from "./utils.mjs";
 
 loadHeaderFooter();
 
