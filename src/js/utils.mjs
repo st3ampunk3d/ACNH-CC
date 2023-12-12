@@ -7,6 +7,7 @@ export function getLocalStorage(key) {
 }
 // save data to local storage
 export function setLocalStorage(key, collection, data) {
+
   try {
     
     let storedArray = JSON.parse(localStorage.getItem(key));
@@ -19,16 +20,19 @@ export function setLocalStorage(key, collection, data) {
       storedArray[collection] = []
     }
 
-    var result = storedArray[collection].find(item => item.name === data.name)
+    if (storedArray[collection] != null) {
+      var result = storedArray[collection].find(item => item.name === data.name)
 
-    if (!result) {
-      storedArray[collection].push(data)
-    } else {
-      const index = storedArray[collection].findIndex((item) => item.name == data.name)
-      storedArray[collection].splice(index, 1)
+      if (!result) {
+        storedArray[collection].push(data)
+      } else {
+        const index = storedArray[collection].findIndex((item) => item.name == data.name)
+        storedArray[collection].splice(index, 1)
+      }
+  
+      localStorage.setItem(key, JSON.stringify(storedArray));   
     }
 
-    localStorage.setItem(key, JSON.stringify(storedArray));
   } catch (error) {
     console.error(error);
   }
@@ -52,7 +56,6 @@ export async function loadSaved(key, category, element) {
 export async function addSaved(key, element, category, list, reload) {
   setTimeout(() => {
     window.onload = loadSaved(key, category, element)
-    console.log(list)
 
     document.querySelector("#content-wrapper").addEventListener("click", function(e) {
       if (e.target && e.target.nodeName =="I") {
@@ -61,11 +64,11 @@ export async function addSaved(key, element, category, list, reload) {
           for (var x=0; x < classes.length; x++) {
             if(classes[x] == element) {
               const index = list.findIndex((item) => item.name == e.target.id)
-              console.log(index)
               setLocalStorage(key, category, list[index])
               loadSaved(key, category, element, e.target.id)
               if (reload) {
                 location.reload()
+
               } 
             }
           }

@@ -67,7 +67,10 @@ export default class CreatureList {
     }
   
     renderList(list) {
-      renderListWithTemplates(ItemCardTemplate, this.gridElement, list);
+      if (list != null) {
+        renderListWithTemplates(ItemCardTemplate, this.gridElement, list);
+      }
+
 
     }
   }

@@ -4,25 +4,46 @@ import { loadHeaderFooter, getParams, getLocalStorage } from "./utils.mjs";
 
 loadHeaderFooter();
 
-const category = getParams("category");
-const dataSource = getLocalStorage("ac-favorites")[category]
+document.querySelector(".fish").addEventListener("click", function () {
+  renderList("fish");
+});
 
-const listElement = document.querySelector(".collectable-grid");
-var myList = []
+document.querySelector(".bugs").addEventListener("click", function () {
+  renderList("bugs");
+});
 
-switch(category) {
+document.querySelector(".sea").addEventListener("click", function () {
+  renderList("sea");
+});
+
+document.querySelector(".villagers").addEventListener("click", function () {
+  renderList("villagers");
+});
+
+async function renderList(category) {
+  const dataSource = getLocalStorage("ac-favorites")[category];
+
+  const listElement = document.querySelector(".collectable-grid");
+  var myList = [];
+
+  switch (category) {
     case "fish":
-        myList = new CreatureList(category, dataSource, listElement, true);
-        break
+      myList = await new CreatureList(category, dataSource, listElement, true);
+      break;
     case "sea":
-        myList = new CreatureList(category, dataSource, listElement, true);
-        break
+      myList = await new CreatureList(category, dataSource, listElement, true);
+      break;
     case "bugs":
-        myList = new CreatureList(category, dataSource, listElement, true);
-        break
+      myList = await new CreatureList(category, dataSource, listElement, true);
+      break;
     case "villagers":
-        myList = new VillagerList(dataSource, listElement, true);
-        break
-}
+      myList = await new VillagerList(dataSource, listElement, true);
+      break;
+  }
 
-myList.init();
+  listElement.innerHTML = "";
+
+  if (getLocalStorage(category) != null) {
+    myList.init();
+  }
+}

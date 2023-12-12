@@ -15,7 +15,7 @@ export default defineConfig({
         favorites: resolve(__dirname, "src/favorites/index.html"),
         creatures: resolve(__dirname, "src/creatures/index.html"),
         villagers: resolve(__dirname, "src/villagers/index.html"),
-        collection: resolve(__dirname, "src/my-collection/index.html")
+        collection: resolve(__dirname, "src/my-collection/index.html"),
       },
     },
   },

@@ -1,5 +1,5 @@
 <div class="double-column">
-  <div class="row">
+  <div class="row go-home">
     <div class="logo">
       <a href="../index.html">
         <img src="../images/Animal_Crossing_Leaf.svg" />
@@ -9,30 +9,49 @@
   </div>
 </div>
 <div class="column">
-  <div id="date-time"></div>
+  <a href="/events/index.html" class="event-button">
+    <div class="button-content">
+      <div id="date-time"></div>
+    </div>
+  </a>
 </div>
 <div class="double-column">
-  <div class="row right-align">
-    <div class="search">
-      <input type="search" name="search" />
-      <input
-        type="image"
-        class="search-icon"
-        name="submit"
-        src="../images/magnifying-glass-solid.svg"
-      />
-    </div>
-  </div>
-  <div class="row right-align">
+  <div class="row right-align bottom">
     <nav id="main-nav">
       <ul class="page-links">
-        <div class="row">
-          <li><i class="fa-solid fa-heart fav">Favorites</i></li>
-          <li><i class="fa-solid fa-circle-check collected">My Collection</i></li>
-          <li>test</li>
+        <div class="row nav">
+          <li class="column">
+            <div class="row nav-icons">
+              <a class="nav-icon fish" href="/creatures/?category=fish"
+                ><img src="../images/link-icons/icon_fish.png" alt="fish"
+              /></a>
+              <a class="nav-icon bugs" href="/creatures/?category=bugs"
+                ><img src="../images/link-icons/icon_bug.png" alt="bugs"
+              /></a>
+              <a class="nav-icon sea" href="/creatures/?category=sea"
+                ><img
+                  src="../images/link-icons/icon_sea.png"
+                  alt="sea-creatures"
+              /></a>
+              <a class="nav-icon villagers" href="/villagers/index.html"
+                ><img
+                  src="../images/link-icons/icon_villager.png"
+                  alt="villagers"
+              /></a>
+            </div>
+          </li>
+          <li class="column">
+            <a href="/favorites/index.html"
+              ><i class="fa-solid fa-heart fav">Favorites</i></a
+            >
+          </li>
+          <li class="column">
+            <a href="/my-collection/index.html"
+              ><i class="fa-solid fa-circle-check collected">Collection</i></a
+            >
+          </li>
         </div>
       </ul>
-      <nav></nav>
     </nav>
   </div>
 </div>

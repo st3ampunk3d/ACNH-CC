@@ -53,7 +53,6 @@ export default class ExternalServices {
   async getCreature(category, name) {
     const url = `${baseURL}nh/${category}/${name}`
     const data = await this.getData(url)
-    console.log(data)
     return data
   }
 
