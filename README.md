@@ -26,7 +26,7 @@ This application is the start of a progress tracker/guide for the Nintendo game,
 
 - Interactive Event Calendar
 - Pagination on the "villagers" view
-- 
+- Real Time Clock display in header
 
 ## Data Storage
 
