@@ -50,6 +50,7 @@ export default class CreatureDetails{
 
     renderDetails(element){
         const main = document.querySelector(element)
+        main.innerHTML=""
         main.insertAdjacentHTML("afterbegin", htmlTemplate(this.creature))
     }
 }

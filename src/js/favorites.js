@@ -4,6 +4,8 @@ import { loadHeaderFooter, getLocalStorage } from "./utils.mjs";
 
 loadHeaderFooter();
 
+window.onload = renderList("fish");
+
 document.querySelector(".fish").addEventListener("click", function () {
   renderList("fish");
 });

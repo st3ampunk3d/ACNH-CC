@@ -2,12 +2,11 @@ import { renderListWithTemplates, capitalize, addSaved, getParams } from "../uti
 
 function ItemCardTemplate(item) {
     return `
-    
     <article class="card">
     <div class="card-content">
     <a href="./?category=${getParams("category")}&name=${item.name}">
     <img class="image"
-      src=${item.image_url}
+      src="${item.image_url}"
       alt="${item.name}"
     />
     </a>
@@ -33,6 +32,7 @@ export default class CreatureList {
     }
     async init() {
       const list = await this.dataSource;
+      console.log(list)
   
       this.renderList(list);
       addSaved("ac-favorites", "fav", this.category, list, this.reload)

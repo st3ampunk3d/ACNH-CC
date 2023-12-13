@@ -1,4 +1,3 @@
-// const baseURL = import.meta.env.VITE_SERVER_URL;
 const baseURL = "https://api.nookipedia.com/";
 const apiKey = "792cc0a7-29b3-4e95-9511-4ea12a6b0fd8"
 
@@ -13,8 +12,6 @@ async function convertToJson(res) {
 
 export default class ExternalServices {
   constructor(category) {
-    //this.category = category;
-    // this.path = `../json/${this.category}.json`;
   }
 
   async getData(url) {

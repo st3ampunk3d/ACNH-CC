@@ -152,7 +152,7 @@ export function renderWithTemplate(
 
   export function paginate(element, perPage) {
       const content = document.querySelector(element); 
-      const itemsPerPage = perPage; // set number of items per page
+      const itemsPerPage = perPage;
       let currentPage = 0;
       const items = Array.from(content.getElementsByTagName('article')).slice(0);
     
@@ -171,7 +171,6 @@ export function renderWithTemplate(
       const paginationDiv = document.body.appendChild(paginationContainer);
       paginationContainer.classList.add('pagination');
     
-      // Add page buttons
       for (let i = 0; i < totalPages; i++) {
         const pageButton = document.createElement('button');
         pageButton.textContent = i + 1;

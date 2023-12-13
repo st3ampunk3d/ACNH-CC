@@ -1,15 +1,26 @@
 import { renderListWithTemplates, capitalize, addSaved, paginate } from "./utils.mjs";
 
 function ItemCardTemplate(item) {
+    var saying = item.quote
+
+    if (saying == "") {
+      saying = item.phrase
+    }
+
     return `
     <article class="card">
     <div class="card-content">
-    <img class="villager image"
-      src=${item.image_url}
+    <a href="#">
+    <img class="image villager"
+      src="${item.image_url}"
       alt="${item.name}"
     />
-    <h3>${capitalize(item.name)}</span></h3>
+    </a>
+    <h3>${capitalize(item.name)}</h3>
     <hr />
+    <p>
+      ${saying}
+    </p>
     <div class="actions">
     <i id="${item.name}" class="fa-solid fa-heart fav"></i>
     <i id="${item.name}" class="fa-solid fa-circle-check collected"></i>
@@ -26,11 +37,12 @@ export default class VillagerList {
     }
     async init() {
       const list = await this.dataSource;
+      console.log(list);
   
       await this.renderList(list);
 
-      addSaved("ac-favorites", "fav", "villagers", list, this.reload)
-      addSaved("ac-collection", "collected", "villagers", list, this.reload)
+      addSaved("ac-favorites", "fav", "villagers", list, this.reload);
+      addSaved("ac-collection", "collected", "villagers", list, this.reload);
     }
   
     renderList(list) {

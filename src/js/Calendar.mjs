@@ -1,11 +1,11 @@
 function renderCalendar(dataSource) {
-    let date=new Date(); // creates a new date object with the current date and time
-    let year=date.getFullYear(); // gets the current year
-    let month=date.getMonth(); // gets the current month (index based, 0-11)
+    let date=new Date();
+    let year=date.getFullYear()
+    let month=date.getMonth();
 
-    const day=document.querySelector(".calendar-dates"); // selects the element with class "calendar-dates"
-    const currdate=document.querySelector(".calendar-current-date"); // selects the element with class "calendar-current-date"
-    const prenexIcons=document.querySelectorAll(".calendar-navigation span"); // selects all elements with class "calendar-navigation span"
+    const day=document.querySelector(".calendar-dates");
+    const currdate=document.querySelector(".calendar-current-date");
+    const prenexIcons=document.querySelectorAll(".calendar-navigation span");
 
     const months=[
     "January",
@@ -19,9 +19,8 @@ function renderCalendar(dataSource) {
     "September",
     "October",
     "November",
-    "December"]; // array of month names
+    "December"];
 
-    // function to generate the calendar
     const manipulate= async ()=> {
         const events = await dataSource.getEvents(year, month+1)
 
